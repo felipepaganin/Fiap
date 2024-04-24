@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.API", "Fiap\Fiap.API.csproj", "{06280586-0014-4947-A079-9098D809E174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.API", "Fiap\Fiap.API.csproj", "{06280586-0014-4947-A079-9098D809E174}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{19A35FCB-C2F5-4994-860D-847EF276E62A}"
 EndProject
@@ -13,17 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Service", "3 - Service"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{7A1C3151-CF14-4367-97B7-230CF980B011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Domain", "Fiap.Domain\Fiap.Domain.csproj", "{B890D98E-3A73-4AF7-88F8-C5132296C67B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Domain", "Fiap.Domain\Fiap.Domain.csproj", "{B890D98E-3A73-4AF7-88F8-C5132296C67B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Service", "Fiap.Service\Fiap.Service.csproj", "{5139AD61-CC48-439A-930B-D9FF96D52A38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Service", "Fiap.Service\Fiap.Service.csproj", "{5139AD61-CC48-439A-930B-D9FF96D52A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.CrossCutting", "Fiap.CrossCutting\Fiap.CrossCutting.csproj", "{CE72B7DF-AB3A-4589-8595-E673644C095D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.CrossCutting", "Fiap.CrossCutting\Fiap.CrossCutting.csproj", "{CE72B7DF-AB3A-4589-8595-E673644C095D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Data", "Fiap.Data\Fiap.Data.csproj", "{D6F8E89A-37B0-4268-BFAD-723F1DBE80AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Data", "Fiap.Data\Fiap.Data.csproj", "{D6F8E89A-37B0-4268-BFAD-723F1DBE80AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Shared", "5 - Shared", "{3E64AFAF-5C9E-4A21-B1AC-42155847D05D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Shared", "Fiap.Shared\Fiap.Shared.csproj", "{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Shared", "Fiap.Shared\Fiap.Shared.csproj", "{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapWebApp", "..\FiapWebApp\FiapWebApp\FiapWebApp.csproj", "{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

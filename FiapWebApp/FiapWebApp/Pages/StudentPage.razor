@@ -1,0 +1,132 @@
+﻿@page "/"
+@using FiapWebApp.Models
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+<PageTitle>Student</PageTitle>
+
+<h1>Student</h1>
+
+<div class="row justify-content-between mb-3">
+    <div class="col-12 col-md-10">
+        <input type="text" class="form-control" placeholder="Search by name..." @* @oninput="OnInput" *@>
+    </div>
+    <div class="col-12 col-md-2">
+        <button class="btn btn-success" @onclick="() => OpenModal()">Add New Student</button>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
+                <button type="button" class="btn-close" @onclick="() => CloseModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="studentName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="studentName" @bind="newStudent.Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentUser" class="form-label">User</label>
+                        <input type="text" class="form-control" id="studentUser" @bind="newStudent.User">
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="studentPassword" @bind="newStudent.Password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="() => CloseModal()">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="SubmitStudent">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students.Data)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.User</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditStudent(student)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteStudent(student)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+@code {
+    private ApiResponse<Student> students;
+
+    private ApiResponse<Student> filteredStudents;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await Http.GetFromJsonAsync<ApiResponse<Student>>("https://localhost:7080/Student/ListStudents");
+
+        // filteredStudents = new Student(students);
+    }
+
+    private Student newStudent = new Student();
+
+    private async Task SubmitStudent()
+    {
+        var response = await Http.PostAsJsonAsync("https://localhost:7080/Student/CreateStudent", newStudent);
+        if (response.IsSuccessStatusCode)
+        {
+            newStudent = new Student();  // Reset form
+            Console.WriteLine("Novo aluno adicionado com sucesso.");
+            await CloseModal();
+        }
+    }
+    private void EditStudent(Student student)
+    {
+        Console.WriteLine($"Editando aluno: {student.Name}");
+    }
+
+    private void DeleteStudent(Student student)
+    {
+        if (students.Data.Remove(student))
+        {
+            students.Data.Remove(student);
+            Console.WriteLine($"Aluno excluído: {student.Name}");
+        }
+    }
+    private async Task OpenModal()
+    {
+        await JSRuntime.InvokeVoidAsync("blazorHelpers.openModal", "addStudentModal");
+    }
+
+    private async Task CloseModal()
+    {
+        await JSRuntime.InvokeVoidAsync("blazorHelpers.closeModal", "addStudentModal");
+    }
+
+    // private void OnInput(ChangeEventArgs e)
+    // {
+    //     var searchValue = e.Value.ToString().ToLower();
+    //     filteredStudents = students.Where(student => student.Name.ToLower().Contains(searchValue)).ToList();
+    //     StateHasChanged();
+    // }
+}

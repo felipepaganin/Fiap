@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Shared", "5 - Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Shared", "Fiap.Shared\Fiap.Shared.csproj", "{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapWebApp", "..\FiapWebApp\FiapWebApp\FiapWebApp.csproj", "{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapWebApp", "FiapWebApp\FiapWebApp\FiapWebApp.csproj", "{9D082CA0-B398-4E57-AFB4-03CD1AC7549F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,10 @@ Global
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{146D0F3C-2646-4C72-ACFB-FED0BC6B7D4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECBA1EC4-6F4D-4B48-AA3B-F0CC62459984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D082CA0-B398-4E57-AFB4-03CD1AC7549F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D082CA0-B398-4E57-AFB4-03CD1AC7549F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D082CA0-B398-4E57-AFB4-03CD1AC7549F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D082CA0-B398-4E57-AFB4-03CD1AC7549F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

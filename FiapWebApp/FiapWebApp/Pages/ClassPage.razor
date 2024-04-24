@@ -1,0 +1,94 @@
+﻿@page "/class"
+@using FiapWebApp.Models
+<PageTitle>Class</PageTitle>
+
+<h1>Class</h1>
+<p>This component demonstrates fetching data from the server.</p>
+
+<div class="row justify-content-between mb-3">
+    <div class="col-12 col-md-10">
+        <input type="text" class="form-control" placeholder="Search by name..." @oninput="OnInput">
+    </div>
+    <div class="col-12 col-md-2">
+        <button class="btn btn-success" @onclick="AddClass">Add New Class</button>
+    </div>
+</div>
+
+@if (classes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in filteredClasses)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Year</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditClass(item)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteClass(item)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Class> classes = new List<Class>()
+    {
+        new Class("ClassB1", 2015),
+        new Class("ClassA1", 2016),
+        new Class("ClassC1", 2017),
+        new Class("ClassD1", 2018),
+        new Class("ClassE1", 2019),
+        new Class("ClassF1", 2020),
+        new Class("ClassG1", 2021),
+        new Class("ClassH1", 2022),
+        new Class("ClassI1", 2023),
+        new Class("ClassJ1", 2024)
+    };
+
+    private List<Class> filteredClasses;
+
+    protected override void OnInitialized()
+    {
+        filteredClasses = new List<Class>(classes);
+    }
+
+    private void AddClass()
+    {
+        Console.WriteLine("Adicionando");
+    }
+
+    private void EditClass(Class editClass)
+    {
+        Console.WriteLine($"Editando a {editClass.Name}");
+    }
+
+    private void DeleteClass(Class deleteClass)
+    {
+        if (classes.Remove(deleteClass))
+        {
+            filteredClasses.Remove(deleteClass);
+            Console.WriteLine($"Aluno excluído: {deleteClass.Name}");
+        }
+    }
+
+    private void OnInput(ChangeEventArgs e)
+    {
+        var searchValue = e.Value.ToString().ToLower();
+        filteredClasses = classes.Where(x => x.Name.ToLower().Contains(searchValue)).ToList();
+        StateHasChanged();
+    }
+}

@@ -6,6 +6,8 @@ namespace Fiap.Data.Interfaces
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        Task<T> FindByConditionAsync(Expression<Func<T, bool>> expression);
         bool Any(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> FindAllAsync();
     }
 }

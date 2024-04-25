@@ -4,6 +4,7 @@ using Fiap.Domain.Commands.Class;
 using Fiap.Domain.Entities;
 using Fiap.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Fiap.Service.Services
 {
@@ -22,9 +23,9 @@ namespace Fiap.Service.Services
 
         public async Task<CommandResult> GetAllClass()
         {
-            var classList = await _readRepository.FindAll().ToListAsync();
+            var classList = await _readRepository.FindAllAsync();
 
-            if (classList is null || classList.Count == 0)
+            if (classList.IsNullOrEmpty())
                 return new CommandResult(false, "Falha ao consultar turmas");
 
             return new CommandResult(true, "Turmas consultados com sucesso", classList);
@@ -34,7 +35,17 @@ namespace Fiap.Service.Services
         {
             command.Validate();
 
-            var notifications = command.Notifications.Concat(command.Notifications);
+            var notifications = command.Notifications;
+
+            var existingClassName = _readRepository.FindByConditionAsync(x => x.ClassName == command.ClassName).Result;
+
+            var actualDate = DateTime.Now.Year;
+
+            if(command.Year < actualDate)
+                return new CommandResult(false, "Não pode cadastrar turma com data menor que a atual", notifications);
+
+            if (existingClassName != null)
+                return new CommandResult(false, "Ja existe turma com esse nome cadastrada", notifications);
 
             if (!command.IsValid)
                 return new CommandResult(false, "Falha ao registrar trumas", notifications);
@@ -51,7 +62,7 @@ namespace Fiap.Service.Services
         {
             command.Validate();
 
-            var notifications = command.Notifications.Concat(command.Notifications);
+            var notifications = command.Notifications;
 
             if (!command.IsValid)
                 return new CommandResult(false, "Falha ao alterar turma", notifications);
@@ -71,7 +82,7 @@ namespace Fiap.Service.Services
 
         public async Task<CommandResult> InactiveClass(Guid id)
         {
-            var inactiveClass = await _readRepository.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+            var inactiveClass = await _readRepository.FindByConditionAsync(x => x.Id == id);
             if (inactiveClass is null)
                 return new CommandResult(false, "Falha ao recuperar turma");
 

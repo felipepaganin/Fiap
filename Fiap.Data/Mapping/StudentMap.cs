@@ -21,7 +21,7 @@ namespace Fiap.Data.Mapping
                 .IsRequired();
 
             builder.Property(x => x.Password)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .IsRequired();
         }
     }

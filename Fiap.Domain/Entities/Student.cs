@@ -1,5 +1,7 @@
 ﻿using Fiap.Domain.Commands.Student;
 using Fiap.Shared.Entities;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Fiap.Domain.Entities
 {
@@ -9,7 +11,7 @@ namespace Fiap.Domain.Entities
         {
             Name = name;
             User = user;
-            Password = password;
+            Password = CalculateHash(password);
         }
 
         public Student() { }
@@ -32,6 +34,21 @@ namespace Fiap.Domain.Entities
         public void Inactive()
         {
             Active = false;
+        }
+
+        private string CalculateHash(string input)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

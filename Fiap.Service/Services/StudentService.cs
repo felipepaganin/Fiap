@@ -4,6 +4,7 @@ using Fiap.Domain.Commands.Student;
 using Fiap.Domain.Entities;
 using Fiap.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Fiap.Service.Services
 {
@@ -22,9 +23,9 @@ namespace Fiap.Service.Services
 
         public async Task<CommandResult> GetAllStudents()
         {
-            var students = await _readRepository.FindAll().ToListAsync();
+            var students = await _readRepository.FindAllAsync();
 
-            if (students is null || students.Count == 0)
+            if (students.IsNullOrEmpty())
                 return new CommandResult(false, "Falha ao consultar alunos");
 
             return new CommandResult(true, "Alunos consultados com sucesso", students);
@@ -34,7 +35,7 @@ namespace Fiap.Service.Services
         {
             command.Validate();
 
-            var notifications = command.Notifications.Concat(command.Notifications);
+            var notifications = command.Notifications;
 
             if (!command.IsValid)
                 return new CommandResult(false, "Falha ao registrar Aluno", notifications);
@@ -51,7 +52,7 @@ namespace Fiap.Service.Services
         {
             command.Validate();
 
-            var notifications = command.Notifications.Concat(command.Notifications);
+            var notifications = command.Notifications;
 
             if (!command.IsValid)
                 return new CommandResult(false, "Falha ao alterar aluno", notifications);
@@ -71,7 +72,7 @@ namespace Fiap.Service.Services
 
         public async Task<CommandResult> InactiveStudent(Guid id)
         {
-            var student = await _readRepository.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+            var student = await _readRepository.FindByConditionAsync(x => x.Id == id);
             if (student is null)
                 return new CommandResult(false, "Falha ao recuperar aluno");
 

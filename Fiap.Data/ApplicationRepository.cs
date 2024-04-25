@@ -21,6 +21,18 @@ namespace Fiap.Data
             return _dbSet.AsNoTracking();
         }
 
+        public async Task<IEnumerable<T>> FindAllAsync()
+        {
+            return await FindAll()
+               .ToListAsync();
+        }
+
+        public async Task<T> FindByConditionAsync(Expression<Func<T, bool>> expression)
+        {
+            return await FindByCondition(expression)
+                .FirstOrDefaultAsync();
+        }
+
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
             return _dbSet.Where(expression);

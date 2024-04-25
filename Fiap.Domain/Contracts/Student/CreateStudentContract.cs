@@ -13,7 +13,8 @@ namespace Fiap.Domain.Contracts.Student
                 .IsNotNullOrEmpty(command.User, "Usuario", "Usuario do aluno não pode ser nulo ou vazio.")
                 .IsGreaterOrEqualsThan(45, command.User.Length, "Usuario", "Usuario do aluno não pode ser superior a 45 caracteres.")
                 .IsNotNullOrEmpty(command.Password, "Senha", "Senha do aluno não pode ser nulo ou vazio.")
-                .IsGreaterOrEqualsThan(60, command.Password.Length, "Senha", "Senha do aluno não pode ser superior a 60 caracteres.");
+                .IsGreaterOrEqualsThan(60, command.Password.Length, "Senha", "Senha do aluno não pode ser superior a 60 caracteres.")
+                .Matches(command.Password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$", "Senha", "Senha fraca");
         }
     }
 }

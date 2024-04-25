@@ -7,7 +7,7 @@ namespace Fiap.Domain.Entities
     {
         public Class(string className, int year)
         {
-            ClassName = className;
+            ClassName = className.ToUpper();
             Year = year;
         }
 
@@ -21,7 +21,7 @@ namespace Fiap.Domain.Entities
 
         public void Update(UpdateClassCommand command)
         {
-            ClassName = command.ClassName;
+            ClassName = command.ClassName.ToUpper();
             Year = command.Year;
         }
 

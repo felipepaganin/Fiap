@@ -17,13 +17,15 @@ namespace Fiap.Service.Services
     {
         private readonly IReadRepository<ClassStudent> _readRepository;
         private readonly IWriteRepository<ClassStudent> _writeRepository;
+        private readonly IReadRepository<Student> _studentReadRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ClassStudentService(IReadRepository<ClassStudent> readRepository, IWriteRepository<ClassStudent> writeRepository, IUnitOfWork unitOfWork)
+        public ClassStudentService(IReadRepository<ClassStudent> readRepository, IWriteRepository<ClassStudent> writeRepository, IUnitOfWork unitOfWork, IReadRepository<Student> studentReadRepository)
         {
             _readRepository = readRepository;
             _writeRepository = writeRepository;
             _unitOfWork = unitOfWork;
+            _studentReadRepository = studentReadRepository;
         }
 
         public async Task<CommandResult> GetAllClassStudent()
@@ -40,7 +42,14 @@ namespace Fiap.Service.Services
         {
             command.Validate();
 
-            var notifications = command.Notifications.Concat(command.Notifications);
+            var notifications = command.Notifications;
+
+            var existingStudent = _studentReadRepository.FindByCondition(x => x.Id == command.StudentId);
+
+            if (existingStudent != null)
+            {
+                return new CommandResult(false, "O aluno já está associado à turma", notifications);
+            }
 
             if (!command.IsValid)
                 return new CommandResult(false, "Falha ao vincular aluno e turma", notifications);
